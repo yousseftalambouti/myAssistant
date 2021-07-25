@@ -44,29 +44,27 @@ public class HotelAdapter  extends ArrayAdapter<Hotel> {
         TextView point_fort=convertView.findViewById(R.id.mPoint_fort);
         TextView evaluationView=convertView.findViewById(R.id.evaluation);
         TextView prixView=convertView.findViewById(R.id.prix);
+        TextView station= convertView.findViewById(R.id.hotel_station);
+        TextView starsview=convertView.findViewById(R.id.nbrstars);
 
 
-        RatingBar ratingBar   =  convertView.findViewById(R.id.ratingBar2);
 
-        ratingBar.setMax(5);
 
         Log.d(TAG,mHotels.get(position).getNom());
         hotelname.setText(mHotels.get(position).getNom());
 
         adresse.setText(mHotels.get(position).getAdresse());
 
-        //prix.setText( mHotels.get(position).getPrice());
-
-       // evaluation.setText((int) mHotels.get(position).getEvaluation());
-        //stars.setText(mHotels.get(position).getStars());
 
         point_fort.setText(mHotels.get(position).getPointFort());
         //lieu.setText(mHotels.get(position).getLieuxApprox());
 
-        evaluationView.setText("Evaluation: "+mHotels.get(position).getEvaluation());
-        prixView.setText("Prix: "+mHotels.get(position).getPrice()+"MAD");
-        ratingBar.setRating(mHotels.get(position).getStars());
-        ratingBar.setIsIndicator(true);
+        evaluationView.setText("Evaluation (/10): "+mHotels.get(position).getEvaluation());
+        prixView.setText("Prix : "+mHotels.get(position).getPrice()+"MAD");
+        station.setText(mHotels.get(position).getStation().equals("")?" ":mHotels.get(position).getStation());
+        //ratingBar.setRating(mHotels.get(position).getStars());
+        //ratingBar.setIsIndicator(true);
+        starsview.setText("nombre d'étoiles: "+mHotels.get(position).getStars());
 
 
 

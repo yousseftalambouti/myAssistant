@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tacheyourself.myassistant.DataListener;
+import com.tacheyourself.myassistant.adapter.HotelAdapter;
 import com.tacheyourself.myassistant.model.Hotel;
 import com.tacheyourself.myassistant.model.Restaurant;
 import com.tacheyourself.myassistant.model.Site;
@@ -77,6 +78,15 @@ mContext = context;
                         String pointsForts=jsonObject.getString("points_forts").replace("\n", " ").replace("\r", " ");
                         String lieuxApp=jsonObject.getString("lieux_proximite").replace("\n", " ").replace("\r", " ");
                         int prix=jsonObject.getInt("prix");
+                        String station;
+
+                        try{
+                            station=jsonObject.getString("station");
+
+                        }catch (JSONException e){
+                            station="";
+
+                        }
 
 
 
@@ -115,7 +125,7 @@ mContext = context;
                         //by default give 2
                         Log.d(TAG,etoile+" eval "+eval);
 
-                        hotelList.add(new Hotel(name,adresse,pointsForts,lieuxApp,evaluation,prix,stars));
+                        hotelList.add(new Hotel(name,adresse,pointsForts,lieuxApp,evaluation,prix,stars,station));
                         //! send to to searchActivity
 
                     }
@@ -241,6 +251,15 @@ mContext = context;
                         String evaluation=jsonObject.getString("evaluation");
 
                         //if there no evaluation for this restaurant
+                        String station;
+
+                        try{
+                            station=jsonObject.getString("station");
+
+                        }catch (JSONException e){
+                            station="";
+
+                        }
 
                         float evaluationf=-1;
 
@@ -255,7 +274,7 @@ mContext = context;
 
 
 
-                        restaurantList.add(new Restaurant(name,adresse,horaire,repas,fonctionalite,evaluationf ));
+                        restaurantList.add(new Restaurant(name,adresse,horaire,repas,fonctionalite,evaluationf,station ));
                         //! send to to searchActivity
 
                     }
@@ -264,6 +283,7 @@ mContext = context;
                     {
                         mDataListener= (DataListener) mContext;
                         mDataListener.sendRestaurant(restaurantList,"restaurant");
+
                     }
 
 

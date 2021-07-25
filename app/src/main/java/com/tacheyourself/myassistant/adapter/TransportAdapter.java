@@ -45,11 +45,11 @@ public class TransportAdapter extends ArrayAdapter<Transport> {
         TextView prix= convertView.findViewById(R.id.trans_prix);
 
         Log.d(TAG,tTransprt.get(position).getType()+" ");
-        type.setText(tTransprt.get(position).getType());
+        type.setText("Type : "+ tTransprt.get(position).getType());
 
         station.setText(tTransprt.get(position).getStation().equals("")?" ":tTransprt.get(position).getStation());
 
-        prix.setText(tTransprt.get(position).getPrix());
+        prix.setText("Prix : "+tTransprt.get(position).getPrix());
 
         return convertView;
     }

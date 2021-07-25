@@ -11,11 +11,12 @@ public class Hotel {
  private float mEvaluation;
  private int mPrice;
  private int mStars;
+ private String station;
 
  public Hotel() {
  }
 
- public Hotel(String nom, String adresse, String pointFort, String lieuxApprox, float evaluation,int price,int stars) {
+ public Hotel(String nom, String adresse, String pointFort, String lieuxApprox, float evaluation,int price,int stars,String mstation) {
   mNom = nom;
   mAdresse = adresse;
   mPointFort = pointFort;
@@ -23,6 +24,7 @@ public class Hotel {
   mEvaluation = evaluation;
   mPrice=price;
   mStars=stars;
+  station=mstation;
  }
 
  public int getPrice() {
@@ -81,6 +83,13 @@ public class Hotel {
 
  public void setEvaluation(float evaluation) {
   mEvaluation = evaluation;
+ }
+ public String getStation() {
+  return station;
+ }
+
+ public void setStation(String station) {
+  this.station = station;
  }
 
 

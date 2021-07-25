@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tacheyourself.myassistant.adapter.HotelAdapter;
@@ -40,6 +41,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private String name;
     private ImageView imageView;
     private int code=100;
+
+    private TextView helper;
 
     private HotelAdapter adapter;
     private ListView mListView;
@@ -104,6 +107,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mListView=findViewById(R.id.liste);
         mProgressBar=findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.GONE);
+        helper=findViewById(R.id.filterhelp);
+        helper.setVisibility(View.GONE);
 
 
 
@@ -116,6 +121,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             filtredList = new ArrayList<>();
             adapter = new HotelAdapter(this, R.layout.hotel_item, mHotelList);
             mListView.setAdapter(adapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showHotelMap(position);
+                }
+            });
         }
 
         if(name.equals("site")) {
@@ -151,6 +162,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             mFilteredRestaurants = new ArrayList<>();
             mRestaurantAdapter = new RestaurantAdapter(this, R.layout.restaurant_item, mRestaurantList);
             mListView.setAdapter(mRestaurantAdapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showRestaurantMap(position);
+                }
+            });
         }
 
     }
@@ -160,7 +177,25 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if(v.getId()==imageView.getId()){
             //! do our work here
+            if(mHotelList != null && mHotelList.size()>0){
+                mHotelList.clear();
+                adapter.notifyDataSetChanged();
+                Log.d(TAG, "onClick: rah brk hna");
+            }
+            if(mRestaurantList != null && mRestaurantList.size()>0){
+                mRestaurantList.clear();
+                mRestaurantAdapter.notifyDataSetChanged();
+            }
+            if(mSitelist != null && mSitelist.size()>0){
+                mSitelist.clear();
+                mSiteAdapter.notifyDataSetChanged();
+            }
+            if(mTransportList != null && mTransportList.size()>0){
+                mTransportList.clear();
+                mTransportAdapter.notifyDataSetChanged();
+            }
             speak();
+
             return;
         }
 
@@ -195,6 +230,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 mRestaurantList.clear();
                 mRestaurantList.addAll(mRestaurantListCopy);
                 mRestaurantAdapter.notifyDataSetChanged();
+
 
 
 
@@ -486,7 +522,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Log.d(TAG,"try to het data");
 
 
-        new SendRequest(this).getInfo("Hôtel Radisson Blu Marrakech",name);
+        //new SendRequest(this).getInfo("Hôtel Radisson Blu Marrakech",name);
         Log.d(TAG,"number of stars and evaluation ");
 
         if(requestCode==code && resultCode==RESULT_OK){
@@ -498,6 +534,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             //! il faut supprimer les commenatires
             new SendRequest(this).getInfo(spokenText,name);
             Log.d(TAG,spokenText);
+            /*mRestaurantListCopy.clear();
+            mRestaurantList.clear();
+            mHotelList.clear();
+            mHotelListCopy.clear();
+            mSiteListCopy.clear();
+            mTransportList.clear();
+            mTransportListCopy.clear();*/
+
 
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -510,6 +554,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mProgressBar.setVisibility(View.GONE);
             if(liste.size()>0){
 
+                /*if(mHotelList != null && mHotelList.size()>0 ){
+                    mHotelList.clear();
+                    adapter.notifyDataSetChanged();
+                }
+                if(mHotelListCopy != null && mHotelListCopy.size()>0){
+                    mHotelListCopy.clear();
+
+                }
+                if (mFilteredSitelist != null && mFilteredSitelist.size()>0){
+                    mFilteredSitelist.clear();
+
+                }*/
+
+
                 Log.d(TAG,"number of stars and evaluation "+liste.get(0).getEvaluation()+" stars "+liste.get(0).getStars());
                 mHotelList.addAll(liste);
                 // Log.d(TAG,"taille est " +mHotelList.size()+" "+mHotelList.get(0).toString());
@@ -518,6 +576,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 MediaPlayer.create(this,R.raw.synthese2).start();
                 //afficher les btns de filtres
                 filter.setVisibility(View.VISIBLE);
+
+
+
 
 
             }
@@ -535,10 +596,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         mProgressBar.setVisibility(View.GONE);
         if(liste.size()>0){
+           /* mSitelist.clear();
+            mSiteAdapter.notifyDataSetChanged();
+            mSiteListCopy.clear();*/
+
             mSitelist.addAll(liste);
             // Log.d(TAG,"taille est " +mHotelList.size()+" "+mHotelList.get(0).toString());
             mSiteAdapter.notifyDataSetChanged();
             MediaPlayer.create(this,R.raw.synthese).start();
+
 
         }
         else{
@@ -551,6 +617,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void sendRestaurant(List<Restaurant> liste, String type) {
         mProgressBar.setVisibility(View.GONE);
         if(liste.size()>0){
+           /*mRestaurantAdapter.notifyDataSetChanged();
+            mRestaurantListCopy.clear();
+            mFilteredRestaurants.clear()*/
+
             mRestaurantList.addAll(liste);
             // Log.d(TAG,"taille est " +mHotelList.size()+" "+mHotelList.get(0).toString());
             mRestaurantAdapter.notifyDataSetChanged();
@@ -558,6 +628,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             MediaPlayer.create(this,R.raw.synthese2).start();
             //afficher les btns de filtres
             filter.setVisibility(View.VISIBLE);
+
 
 
         }
@@ -574,11 +645,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mProgressBar.setVisibility(View.GONE);
 
         if(liste.size()>0){
+            /*mTransportList.clear();
+            adapter.notifyDataSetChanged();
+            mTransportListCopy.clear();
+            mFilteredSitelist.clear();*/
+
             mTransportList.addAll(liste);
             // Log.d(TAG,"taille est " +mHotelList.size()+" "+mHotelList.get(0).toString());
             mTransportAdapter.notifyDataSetChanged();
             //MediaPlayer.create(this,R.raw.synthese).start();
             MediaPlayer.create(this,R.raw.synthese).start();
+
 
 
 
@@ -591,8 +668,73 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void showTransportMap(int position){
         // Create a Uri from an intent string. Use the result to create an Intent.
 
-        Log.d(TAG,mTransportList.get(position).getType()+"  type     hhhhhhh");
+        Log.d(TAG,mTransportList.get(position).getType());
         Uri gmmIntentUri = Uri.parse("geo:31.6347485,-8.0778934?q="+mTransportList.get(position).getType());
+
+// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+// Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            // Attempt to start an activity that can handle the Intent
+            startActivity(mapIntent);
+
+        }
+        else{
+            Toast.makeText(this, "Veuillez installer google maps", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+    private void showHotelMap(int position){
+        // Create a Uri from an intent string. Use the result to create an Intent.
+
+        Log.d(TAG,mHotelList.get(position).getNom()+"  type     hhhhhhh");
+        Uri gmmIntentUri = Uri.parse("geo:31.6347485,-8.0778934?q="+mHotelList.get(position).getNom());
+
+// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+// Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            // Attempt to start an activity that can handle the Intent
+            startActivity(mapIntent);
+
+        }
+        else{
+            Toast.makeText(this, "Veuillez installer google maps", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private void showRestaurantMap(int position){
+        // Create a Uri from an intent string. Use the result to create an Intent.
+
+        Log.d(TAG,mRestaurantList.get(position).getNom()+"  type     hhhhhhh");
+        Uri gmmIntentUri = Uri.parse("geo:31.6347485,-8.0778934?q="+mRestaurantList.get(position).getNom());
+
+// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+// Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            // Attempt to start an activity that can handle the Intent
+            startActivity(mapIntent);
+
+        }
+        else{
+            Toast.makeText(this, "Veuillez installer google maps", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+    private void showSiteMap(int position){
+        // Create a Uri from an intent string. Use the result to create an Intent.
+
+        Log.d(TAG,mSitelist.get(position).getNom()+"  type     hhhhhhh");
+        Uri gmmIntentUri = Uri.parse("geo:31.6347485,-8.0778934?q="+mSitelist.get(position).getNom());
 
 // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);

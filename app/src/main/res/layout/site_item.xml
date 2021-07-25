@@ -11,11 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:padding="4dp"
-        android:text="TextView" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        android:textColor="@color/bleu"
+        android:textSize="15sp"
+        android:textStyle="bold"
+
+        />
 
     <TextView
         android:id="@+id/adresse_site"
+        android:fontFamily="@font/italic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -44,6 +54,13 @@
         android:text="TextView" />
     <TextView
         android:id="@+id/sSite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/site_station"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

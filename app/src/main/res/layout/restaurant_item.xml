@@ -10,13 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:padding="4dp"
-        android:text="TextView" />
-
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        android:textColor="@color/bleu"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        />
     <TextView
         android:id="@+id/radresse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/italic"
+
         android:layout_marginTop="4dp"
         android:padding="4dp"
         android:text="TextView" />
@@ -49,5 +58,18 @@
         android:text="Evaluation"
         android:textColor="#000000"
         android:textSize="16sp" />
+    <TextView
+        android:id="@+id/restau_station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+        android:text="TextView" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consulter map !"
+        android:textColor="@color/teal_200"
+        android:layout_marginLeft="150dp"/>
 
 </LinearLayout>

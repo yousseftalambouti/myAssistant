@@ -10,6 +10,7 @@ public class Restaurant {
     private String rRepas;
     private String rFonctionalite;
     private float revaluation;
+    private String mstation;
 
     public float getRevaluation() {
         return revaluation;
@@ -22,13 +23,14 @@ public class Restaurant {
     public Restaurant(){
 
     }
-    public Restaurant(String nom, String adresse, String horaire, String repas, String fonctionalité, float evaluation) {
+    public Restaurant(String nom, String adresse, String horaire, String repas, String fonctionalité, float evaluation,String station) {
         rNom = nom;
         rAdresse = adresse;
         rHoraire = horaire;
         rRepas = repas;
         rFonctionalite = fonctionalité;
         revaluation=evaluation;
+        mstation=station;
     }
     public String getNom() {
         return rNom;
@@ -70,6 +72,14 @@ public class Restaurant {
 
     public void setAearportProche(String fonctionalité) {
         rFonctionalite = fonctionalité;
+    }
+
+    public String getStation() {
+        return mstation;
+    }
+
+    public void setStation(String station) {
+        mstation = station;
     }
 
     public String toString() {
